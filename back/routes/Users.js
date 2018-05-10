@@ -1,6 +1,6 @@
 'use strict';
 let nodemailer = require('nodemailer');
-let userServices = require('./../services/usersServices.js') 
+let userServices = require('./../services/usersService.js') 
 let fs = require('fs');
 let path = require('path');
 let randonNumber=null;  /// numero randon que genera el codigo de verificacion, linea 35

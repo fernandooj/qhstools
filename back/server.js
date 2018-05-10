@@ -15,8 +15,10 @@ let SocketIO     = require('./socket.js')
 
 
 // importo las rutas
- 
-
+let empresaRuta     = require('./routes/Empresa.js')
+let esctructuraRuta = require('./routes/Estructura.js')
+let procesoRuta     = require('./routes/Proceso.js')
+let indicadorRuta   = require('./routes/Indicador.js')
 const path          = require('path');
 
 //let mongoStore   = require('connect-mongo')(session)
@@ -104,7 +106,10 @@ app.use(flash());
 
 // creo la ruta de las categorias
  
-
+app.use('/x/v1/emp/empresa', empresaRuta)
+app.use('/x/v1/est/estructura', esctructuraRuta)
+app.use('/x/v1/pro/proceso', procesoRuta)
+app.use('/x/v1/ind/indicador', indicadorRuta)
 require('./routes/Users.js')(app, passport);
 
 server.listen(port)

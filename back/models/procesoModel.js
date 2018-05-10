@@ -13,22 +13,20 @@ let moment   = require('moment');
 ///////////////////////////////////////////////////////////////////////////
 /// genero la base la coleccion llamada PROCESO  
 ///////////////////////////////////////////////////////////////////////////
-let UserSchema = mongoose.Schema({
-	createdAt	: { type: String, default: moment().format('YYYY-MM-DD h:mm:ss') },
-	editedAt	: { type: String, default: moment().format('YYYY-MM-DD h:mm:ss') },
-	nombre	 : String,
-    tipo     : String, 										   /// estratégico, misional, apoyo							   
-	alcance	 : String,          							    								  
-	recursos : String,          							   /// humanos, físicos, información documentada asociada	          							    
-	lider    :[{type: Schema.Types.ObjectId, ref:'User'}],     /// ids de las empresas asignadas
-	objetivo : String,		
-	userEdit :[{type: Schema.Types.ObjectId, ref:'User'}],      
+let ProcesoSchema = Schema({
+	createdAt : { type: String, default: moment().format('YYYY-MM-DD h:mm:ss') },
+	nombre	  : String,
+    tipo      : String,     /// estratégico, misional, apoyo							   
+	alcance	  : String,          							    								  
+	recursos  : String,		/// humanos | físicos | información documentada asocia
+	lider     : String,  
+	estado	  : Boolean,    /// activo == true | innactivo == false        							            							    
+	idEstructura  :  {type: Schema.Types.ObjectId, ref:'Estructura'},	
+	idEmpresa     : [{type: Schema.Types.ObjectId, ref:'Empresa'}],   
+	idUsuarioCrea :  {type: Schema.Types.ObjectId, ref:'User'},      
 });
 
- 
- 
-
-module.exports =  mongoose.model('User', UserSchema) 
+module.exports =  mongoose.model('Proceso', ProcesoSchema) 
 
  
 

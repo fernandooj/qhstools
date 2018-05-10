@@ -12,7 +12,7 @@ let moment   = require('moment');
 /////////////////////////////////////////////////////////////////////////
 /********** genero la base la coleccion llamada users   ****************/
 /////////////////////////////////////////////////////////////////////////
-let UserSchema = mongoose.Schema({
+let UserSchema = Schema({
 	createdAt	: { type: String, default: moment().format('YYYY-MM-DD h:mm:ss') },
 	updatedAt	: String,
 	username	: String,
@@ -27,7 +27,7 @@ let UserSchema = mongoose.Schema({
 	telefono	: String,
 	tipo		: String,  /// email | facebook | google | celular
 	acceso		: String,  /// niveles de acceso a la aplicacion ver ayua abajo
-	estado		: String,  /// activo == true / innactivo == false
+	estado		: Boolean, /// activo == true / innactivo == false
 	updatedAt	: String,
 	username	: String,
 	password 	: String,
