@@ -11,7 +11,13 @@ import 'jquery';
 import 'font-awesome/css/font-awesome.min.css'; // css is not managed by CSSModule
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
+import axios from 'axios'
 import './style/index.scss'; // import general styles, mixins etc...
+
+
+
+export const URL = window.location.origin;
+axios.defaults.baseURL = URL;
 
 // smoothscroll polyfill
 smoothScrollPolyfill.polyfill();

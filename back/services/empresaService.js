@@ -31,6 +31,7 @@ class empresaServices{
 	///// 		recupera solo una empresa
 	/////////////////////////////////////////////////////////////////////////
 	getPorEmpresa(_id, callback){
+		console.log(_id)
 		empresaSchema.findById({_id}).populate('idProceso').exec(callback)
 	}
 

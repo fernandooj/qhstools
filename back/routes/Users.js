@@ -212,19 +212,20 @@ module.exports = function(app, passport){
     */
     ///////////////////////////////////////////////////////////////////////////
     app.post('/x/v1/user/login', function(req,res,next){
-        userServices.login(req.body, function(err, user){
+        console.log(req.body)
+        userServices.login(req.body, function(err, usuario){
             if (err) {
                 res.json({status:'FAIL', err, code:0 })
             }else{
-                if(user==null){
-                    res.json({status:'FAIL', user: 'Usuario no existe', code:2 })
+                if(usuario==null){
+                    res.json({status:'FAIL', usuario: 'Usuario no existe', code:2 })
                 }else{
-                    if(user.validPassword(req.body.password)){
-                        req.session.usuario = user
-                        res.json({status:'SUCCESS', user: user, code:1 })
+                    if(usuario.validPassword(req.body.password)){
+                        req.session.usuario = usuario
+                        res.json({status:'SUCCESS', usuario, code:1 })
                         
                     }else{
-                        res.json({status:'FAIL', user: 'Datos incorrectos', code:0 })
+                        res.json({status:'FAIL', usuario: 'Datos incorrectos', code:0 })
                         
                     }     
                 }

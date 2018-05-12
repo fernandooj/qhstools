@@ -10,8 +10,9 @@ const NavigationBar = ({
   brand,
   navModel,
   handleLeftNavItemClick,
-  handleRightNavItemClick
-}) => {
+  handleRightNavItemClick,
+  showMenu
+}) => { 
   return (
     <nav className="navbar navbar-default">
       <div className="containersCustom">
@@ -35,11 +36,13 @@ const NavigationBar = ({
             }
           </ul>
           <ul className="nav navbar-nav navbar-right">
-            {
-              <RightNav
+            { 
+              showMenu
+              ?<RightNav
                 rightLinks={navModel.rightLinks}
                 onRightNavButtonClick={handleRightNavItemClick}
               />
+              :null
             }
           </ul>
         </div>

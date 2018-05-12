@@ -38,7 +38,8 @@ router.get('/porEmpresa/:id', (req,res)=>{
 		if (err) {
 			res.json({status:'FAIL', err, code:0})
 		}else{
-			 res.json({status:'SUCCESS', empresa, total:empresa.length, code:1})  
+			empresa =empresa===null ?[] :empresa
+			res.json({status:'SUCCESS', empresa, total:empresa, code:1})  
 		}
 	})
 })

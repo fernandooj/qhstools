@@ -1,38 +1,58 @@
-import {createStore} from 'redux';
-
-// const reducer = (state, action)=>{
-// 	if (action.type==='ADD_TO_CART'){
-// 		return{
-// 			...state,
-// 			cart: state.cart.concat(action.product)
-// 		}	
-// 	}
-
-// 	return state
-// };
-
-// export default createStore(reducer, {cart:[]})
-
-
-
-
+import {createStore, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk'
 const reducer = (state, action)=>{
+	if(action.type==='LOGIN') {
+		return{
+			...state,
+		 	usuario:action.usuario,
+		}
+	}
 	if(action.type==='AGREGAR'){
-		console.log(action.data)
 		return{
 			...state,
 			amigo: state.amigo.concat(action.data)
 		}
 	}
 	if(action.type==='BORRAR'){
-		console.log(state.amigo)
 		return{
 			...state,
 			amigo:state.amigo.filter((e, key)=>{ return key !== action.key})
 		}
 	}
+	if (action.type==='PERFIL') {
+		return{
+			...state,
+			perfil:action.perfil
+		}
+	}
+	if (action.type==='GUARDAR_EMPRESA') {
+		return{
+			...state,
+			data:action.data
+		}
+	}
+	return state
+	if (action.type==='GUARDAR_ESTRUCTURA') {
+		return{
+			...state,
+			data:action.data
+		}
+	}
+	if (action.type==='OBTENER_EMPRESA') {
+		return{
+			...state,
+			empresa:action.empresa
+		}
+	}
 	return state
 }
 
+const logger = store => next => action => {
+  console.log('dispatching', action)
+  let result = next(action)
+  console.log('next state', store.getState())
+  return result
+}
 
-export default createStore(reducer, { amigo:[] })
+
+export default createStore(reducer, { amigo:[], usuario:[], perfil:[], data:[], empresa:[] }, applyMiddleware(logger, thunk))
