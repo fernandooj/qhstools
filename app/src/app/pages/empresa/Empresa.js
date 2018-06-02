@@ -1,29 +1,21 @@
 import {connect}        from 'react-redux'
 import React     		from 'react'
-import { notification } from 'antd';
-import Empresa          from './empresaComponent.js'
+import Empresa          from './EmpresaComponent.js'
 import {guardaEmpresa}  from '../../redux/actionCreator'
 import store 			from '../../redux/store.js'
 
 
-const alertaLogin = (type, mensaje) => {
-  notification[type]({
-    message: 'Super!!',
-    description: mensaje,
-  });
-};
+
 
 
 const empresaContain =(props)=>{
-	//store.dispatch(obtieneEmpresa(props.match.params.id))
-	//console.log(props)
-	if (props.data.status=='SUCCESS') {
-		alertaLogin('success', 'Tu Empresa fue creada!! Ahora puedes agregar estructuras y procesos')
-		props.history.push(`/empresas/${props.data.empresa._id}`);
-		props.data.status = null
-	}
 	return(
-		<Empresa valoresInput={(values)=>props.GuardarEmpresa(values)} respuesta={props.match.params.id ?true :false} />
+		<Empresa 
+			handleSubmit={(values)=>props.GuardarEmpresa(values)}
+			respuesta={props.data} 
+			//idEmpresa={props.data.status=='SUCCESS' ?props.data.empresa._id : null}
+			idEmpresa='5b1246adc80a9c105300d7cd'
+		/>
 	)
 }
 

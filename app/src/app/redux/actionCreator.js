@@ -71,18 +71,57 @@ const obtieneEmpresa = (idEmpresa)=>{
 	}
 }
 
+const obtieneEstructura = (idEmpresa)=>{
+	return dispatch=>{
+		return axios.get(`/x/v1/est/estructura/porEmpresa/${idEmpresa}`)
+	   .then(res=>{
+	   		dispatch({
+	   			type:'OBTENER_ESTRUCTURA',
+	   			estructuras: res.data.estructura
+	   		})
+	   })
+	}	
+}
+
 const guardaEstructura = (data)=>{
+	return dispatch=>{
+		return axios.post('/x/v1/est/estructura', data)
+	   .then(res=>{
+	   		console.log(res.data)
+	   		dispatch({
+	   			type:'GUARDAR_ESTRUCTURA',
+	   			estructura: res.data
+	   		})
+	   })
+	}	
+}
+
+const obtieneProceso = (idEmpresa)=>{
+	return dispatch=>{
+		return axios.get(`/x/v1/est/estructura/porEmpresa/${idEmpresa}`)
+	   .then(res=>{
+	   		dispatch({
+	   			type:'OBTENER_ESTRUCTURA',
+	   			estructuras: res.data.estructura
+	   		})
+	   })
+	}	
+}
+
+const guardaProceso = (data)=>{
 	return dispatch=>{
 		return axios.post('/x/v1/est/estructura', data)
 	   .then(res=>{
 	   		dispatch({
 	   			type:'GUARDAR_ESTRUCTURA',
-	   			data: res.data
+	   			estructura: res.data
 	   		})
 	   })
 	}	
 }
-export {agregar, elimina, login, perfil, guardaEmpresa, guardaEstructura, obtieneEmpresa}
+
+export {agregar, elimina, login, perfil, guardaEmpresa, guardaEstructura,
+ 		obtieneEmpresa, obtieneEstructura, obtieneProceso, guardaProceso}
 
 
 

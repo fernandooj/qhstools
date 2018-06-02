@@ -25,34 +25,65 @@ const reducer = (state, action)=>{
 			perfil:action.perfil
 		}
 	}
-	if (action.type==='GUARDAR_EMPRESA') {
-		return{
-			...state,
-			data:action.data
-		}
-	}
-	return state
-	if (action.type==='GUARDAR_ESTRUCTURA') {
-		return{
-			...state,
-			data:action.data
-		}
-	}
 	if (action.type==='OBTENER_EMPRESA') {
 		return{
 			...state,
 			empresa:action.empresa
 		}
 	}
+	if (action.type==='GUARDAR_EMPRESA') {
+		return{
+			...state,
+			data:action.data
+		}
+	}
+	if (action.type==='OBTENER_ESTRUCTURA') {
+		return{
+			...state,
+			estructuras:action.estructuras
+		}
+	}
+	if (action.type==='GUARDAR_ESTRUCTURA') {
+		return{
+			...state,
+			estructuras: [action.estructura, ...state.estructura],
+			estructura:  action.estructura
+		}
+	}
+	if (action.type==='OBTENER_PROCESO') {
+		return{
+			...state,
+			procesos:action.procesos
+		}
+	}
+	if (action.type==='GUARDAR_PROCESO') {
+		return{
+			...state,
+			procesos: [action.proceso, ...state.proceso],
+			proceso:  action.proceso
+		}
+	}
+	
+
 	return state
 }
 
 const logger = store => next => action => {
-  console.log('dispatching', action)
+  //console.log('dispatching', action)
   let result = next(action)
-  console.log('next state', store.getState())
+  //console.log('next state', store.getState())
   return result
 }
 
 
-export default createStore(reducer, { amigo:[], usuario:[], perfil:[], data:[], empresa:[] }, applyMiddleware(logger, thunk))
+export default createStore(reducer, { 
+		amigo:[], usuario:[], perfil:[], data:[], empresa:[], estructura:[], estructuras:[], proceso:[], procesos:[] 
+	}, applyMiddleware(logger, thunk))
+
+
+
+
+
+
+
+

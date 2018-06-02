@@ -1,5 +1,6 @@
 import React, {PureComponent}      from 'react'
-import { Form, Input, Tooltip, Icon, Select, Row, Col, Divider, Button, AutoComplete } from 'antd';
+import { Form, Input, Icon, Select, Row, Col, Divider, 
+		   Button, AutoComplete, notification, Table } from 'antd';
  
  
 
@@ -8,9 +9,19 @@ const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
 let uuid = 0;
 
-
+const alertaLogin = (type, mensaje) => {
+  notification[type]({
+    message: 'Super!!',
+    description: mensaje,
+  });
+};
 class Estructura extends React.Component {
-  state = { autoCompleteResult: []};
+   state = { autoCompleteResult: []};
+
+	shouldComponentUpdate(nextProps, nextState) {
+		nextProps.respuesta.status=='SUCCESS' && alertaLogin('success', 'Tu Estructura fue creada!!')
+		return true;
+	}
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////			ENVIO DEL FORMULARIO PARA CREAR LAS EMPRESAS
@@ -79,7 +90,7 @@ class Estructura extends React.Component {
 	        xs: { span: 24, offset: 0 },
 	        sm: { span: 20, offset: 4 },
 	      },
-	    };
+	   };
 		getFieldDecorator('keys', { initialValue: [] });
       const keys = getFieldValue('keys');
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -117,6 +128,7 @@ class Estructura extends React.Component {
 			            />
 			          ) : null} 
 				   </FormItem>
+				   
 				</div>
 	         
 	      );
@@ -124,31 +136,46 @@ class Estructura extends React.Component {
 		const websiteOptions = autoCompleteResult.map(website => (
 			<AutoCompleteOption key={website}>{website}</AutoCompleteOption>
 		));
+		const columns = [{
+			title: 'Nivel',
+			dataIndex: 'nivel',
+			key: 'nivel',
+			align:'center'
+		}, {
+			title: 'Denominacion',
+			dataIndex: 'denominacion',
+			key: 'denominacion',
+			align:'center'
+		}];
 
       return (
-    	<Row>
-	    	<Col offset={0} xs={12} sm={10} md={10} lg={12} xxl={{ span: 24, offset: 0 }}  >
-		   {/*  Estructura organizacional por cargos  */}
-		   <Divider>Estructura organizacional por cargos</Divider>
-		   	<Form onSubmit={this.handleSubmit}>
+	    	<Row>
+		    	<Col  xxl={{ span: 24, offset: 0 }}  >
+			   	<Form onSubmit={this.handleSubmit}>
+			    		{/* CARGO LAS ESTRUCTURAS QUE SE VAN AGREGANDO */}
+				    	{formItems}
 
-		    
-			    	{formItems}
+				     {/* BOTONES PARA AGREGAR MAS ELEMENTOS */}
+				    	<FormItem {...formItemLayoutWithOutLabel}>
+				    	  	<Button type="primary" htmlType="submit">Guardar</Button>
+			           	<Button type="dashed" onClick={this.add} style={{ width: 220, marginLeft:10 }}>
+			            	<Icon type="plus" /> agregar Campo
+			           	</Button>
+			        	</FormItem>
+				        	{/*  TABLA CON EL CONTENIDO DE LA INFORMACION */}
+				   	<Table 
+				   		dataSource={this.props.estructuras} 
+				   		columns={columns} 
+				   		rowKey='_id'
+				   		pagination={false}
+				   	/>
+			    	</Form> 
+		    	</Col>
+	    	</Row>
+		);
+	}
 
-			    	<FormItem {...formItemLayoutWithOutLabel}>
-			    	  <Button type="primary" htmlType="submit">Guardar</Button>
-		           <Button type="dashed" onClick={this.add} style={{ width: '60%', marginLeft:10 }}>
-		            <Icon type="plus" /> agregar Campo
-		           </Button>
-		          
-		        </FormItem>
-		    	 
-		    	</Form> 
-
-	    	</Col>
-    	</Row>
-    );
-  }
+ 
 }
 
 
